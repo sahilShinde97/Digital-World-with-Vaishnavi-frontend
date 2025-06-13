@@ -73,9 +73,15 @@ export const UserContextProvider = ({ children }) => {
 
   async function fetchUser() {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
       const { data } = await axios.get(`${server}/api/user/me`, {
         headers: {
-          token: localStorage.getItem("token"),
+          token,
         },
       });
 
@@ -84,6 +90,12 @@ export const UserContextProvider = ({ children }) => {
       setLoading(false);
     } catch (error) {
       console.log(error);
+      // If token is invalid or expired, clear it
+      if (error.response?.status === 403) {
+        localStorage.removeItem("token");
+        setIsAuth(false);
+        setUser([]);
+      }
       setLoading(false);
     }
   }
