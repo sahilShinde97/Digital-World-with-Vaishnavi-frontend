@@ -101,7 +101,7 @@ const CourseDescription = ({ user }) => {
                   <h2 className="text-3xl font-extrabold text-purple-700 mb-2 text-center md:text-left">{course.title}</h2>
                   <p className="text-base text-gray-700 mb-1">Instructor: <span className="font-semibold">{course.createdBy}</span></p>
                   <p className="text-base text-gray-700 mb-1">Duration: {course.duration} weeks</p>
-                  <p className="text-base text-gray-700 mb-4">{course.description}</p>
+                  <div className="text-base text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: course.description }} />
                   <p className="text-lg font-bold text-gray-800 mb-6">
                     Let's get started with course At <span className="text-purple-700">₹{course.price}</span>
                   </p>
